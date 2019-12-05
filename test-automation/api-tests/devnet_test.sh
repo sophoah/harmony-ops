@@ -27,7 +27,7 @@ do
  esac
 done
 
-until $(curl --silent --location --request POST "localhost:9500" \
+until $(curl --silent --location --request POST "https://api.s0.pga.hmny.io" \
    --header "Content-Type: application/json" \
    --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":1}' > /dev/null)
 do
@@ -38,12 +38,12 @@ done
 valid=false
 until $valid
 do
-    result=$(curl --silent --location --request POST "localhost:9500" \
+    result=$(curl --silent --location --request POST "https://api.s0.pga.hmny.io" \
         --header "Content-Type: application/json" \
         --data '{"jsonrpc":"2.0","method":"hmy_blockNumber","params":[],"id":1}' \
          | jq '.result')
     if [ "$result" = "\"0x0\"" ]; then
-        echo "Waiting for localnet to boot..."
+        echo "Waiting for devnet to boot..."
         sleep 3
     else
         valid=true
