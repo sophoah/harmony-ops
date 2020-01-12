@@ -17,8 +17,8 @@ verbose = True
 
 tx_gen.set_config({
     "AMT_PER_TXN": [1, 1],  # The random range for each transaction in the transaction-generation
-    "NUM_SRC_ACC": 5,  # The number of possible source accounts for all transactions
-    "NUM_SNK_ACC": 1,  # The number of possible destination / sink accounts for all transaction
+    "NUM_SRC_ACC": 1,  # The number of possible source accounts for all transactions
+    "NUM_SNK_ACC": 10,  # The number of possible destination / sink accounts for all transaction
     "MAX_TXN_GEN_COUNT": 1,  # The upper bound of the number generated transaction, regardless of if `stop` is called
     "ONLY_CROSS_SHARD": False,  # If true, forces source and destination shards to be different
     "ESTIMATED_GAS_PER_TXN": 1e-3,  # The estimated gas, hardcoded
@@ -94,5 +94,5 @@ if __name__ == "__main__":
     time.sleep(25)
     report = analysis.verify_transactions(tx_gen.Loggers.transaction.filename, start_time, end_time)
     print(report)
-    assert report["received-transaction-report"]["successful-transactions-total"] >= 10
+    assert report["received-transaction-report"]["successful-transactions-total"] == 10
     assert report["received-transaction-report"]["failed-transactions-total"] == 0
